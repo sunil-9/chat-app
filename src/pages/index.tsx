@@ -1,9 +1,8 @@
 import ChatForm from "@/components/ChatForm";
-import { ApiResponse } from "@/types/ApiResponse";
-import { Inter } from "next/font/google";
+import { ResponseData } from "@/types/ApiResponse";
 import { useEffect, useState } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 let imagelist = [
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
@@ -18,7 +17,7 @@ function getImage() {
 }
 
 export default function Home() {
-  const [messages, setMessages] = useState<ApiResponse>(null);
+  const [messages, setMessages] = useState<ResponseData>(null);
   async function getData() {
     const response = await fetch("/api/chat");
     const data = await response.json();
@@ -32,47 +31,57 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen flex-col items-center justify-between w-auto `}
     >
       <ul role="list" className="divide-y divide-gray-100">
         {messages &&
           messages.success &&
-          messages.data?.map((message) => (
-            <li
-              className="flex justify-between gap-x-6 py-5"
-              key={`${message._id}`}
-            >
-              <div className="flex gap-x-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                  src={`${getImage()}`}
-                  alt=""
-                />
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-300">
-                    {`${message.name}`}
-                  </p>
-                  <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                    {`${message.message}`}
-                  </p>
+          messages.data?.map(
+            (message: {
+              _id: any;
+              name: any;
+              message: any;
+              createdAt: any;
+            }) => (
+              <li
+                className="flex justify-between gap-x-6 py-5"
+                key={`${message._id}`}
+              >
+                <div className="flex gap-x-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="h-12 w-12 flex-none rounded-full bg-gray-50"
+                    src={`${getImage()}`}
+                    alt=""
+                  />
+                  <div className="min-w-0 flex-auto">
+                    <p className="text-sm font-semibold leading-6 text-gray-300">
+                      {`${message.name}`}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      {`${message.message}`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="hidden sm:flex sm:flex-col sm:items-end">
-                {/* <p className="text-sm leading-6 text-gray-900">
+                <div className="hidden sm:flex sm:flex-col sm:items-end">
+                  {/* <p className="text-sm leading-6 text-gray-900">
                  user
                 </p> */}
-                <p className="mt-1 text-xs leading-5 text-gray-500">
-                  Last seen{" "}
-                  {new Date(`${message.createdAt}`).toLocaleTimeString()}
-                </p>
-              </div>
-            </li>
-          ))}
-        <li className="flex justify-between gap-x-6 py-5">
-          <ChatForm />
-        </li>
+                  <p className="mt-1 text-xs leading-5 text-gray-500">
+                    Last seen{" "}
+                    {new Date(`${message.createdAt}`).toLocaleTimeString()}
+                  </p>
+                </div>
+              </li>
+            )
+          )}
       </ul>
+
+      <div className=" py-5">
+        <span className="pl-5">Send your message</span>
+        <br />
+        <ChatForm />
+      </div>
     </main>
   );
 }

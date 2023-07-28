@@ -36,10 +36,10 @@ const ChatForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full p-4 bg-white rounded-lg shadow-md"
+      className="w-full p-4  rounded-lg shadow-md"
     >
       <div className="mb-4">
-        <label htmlFor="name" className="text-gray-700">
+        <label htmlFor="name" className="text-gray-500">
           Name:
         </label>
         <input
@@ -47,18 +47,18 @@ const ChatForm: React.FC = () => {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
+          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-white bg-black p-2 border-2"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="message" className="text-gray-700">
+        <label htmlFor="message" className="text-gray-500">
           Message:
         </label>
         <textarea
           id="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-black"
+          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-white bg-black p-2 border-2"
           rows={4}
         ></textarea>
       </div>
