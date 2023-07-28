@@ -1,5 +1,16 @@
 version: "3"
 services:
+  web:
+    build: . # This will use the Dockerfile in the current directory.
+    image: chat-server
+    container_name: web
+    ports:
+      - 3001:3000
+    networks:
+      - my-network
+    environment:
+      - RABBIT_MQ_HOST=rabbitmq
+
   # graphana dashboard id :10991
   grafana:
     image: grafana/grafana-enterprise
@@ -24,16 +35,16 @@ services:
       # rabbitmq-plugins enable rabbitmq_prometheus rabbitmq_management rabbitmq_management_agent rabbitmq_web_dispatch
     networks:
       - my-network
-  
+
   prometheus:
-      image: prom/prometheus
-      container_name: prometheus
-      ports:
-        - 9090:9090
-      volumes:
-        - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      networks:
-        - my-network
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - my-network
 
 networks:
   my-network:
