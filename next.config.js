@@ -7,8 +7,7 @@ const nextConfig = {
   env: {
     DB_URL: `mongodb+srv://xxx:xxx@xxx.xxx.mongodb.net/xxx`,
     RABBIT_MQ_USER: "guest",
-    RABBIT_MQ_PASSWORD: "admin",
-    RABBIT_MQ_HOST: "xx.xx.xx.xx",
+    RABBIT_MQ_PASSWORD: "guest",
   },
 };
 
